@@ -26,7 +26,7 @@ arr = NamedArray(
     },
 )
 
-max = arr.max(dim="lat")
+arr_max = arr.max(dim="lat")
 
 ```
 
