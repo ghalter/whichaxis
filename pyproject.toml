@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "whichaxis"
-version = "0.1.1"
+version = "0.1.2"
 description = "NumPy arrays with named axes. Because axis=1 is not a memory aid."
 authors = ["Gaudenz Halter"]
 license = "MIT"
