@@ -4,7 +4,7 @@ import numpy as np
 import xarray as xr
 from numpy.lib._stride_tricks_impl import sliding_window_view
 
-from whichaxis.reducers import REDUCERS, _HANDLED_FUNCTIONS
+from whichaxis.reducers import REDUCERS
 
 
 # -----------------------------------------------------------------------------
@@ -373,9 +373,9 @@ class NamedArray:
         Intercept a very small whitelist of NumPy functions.
         Everything else falls back to NumPy.
         """
-        if func not in REDUCERS:
+        if func not in _HANDLED_FUNCTIONS:
             return NotImplemented
-        return REDUCERS[func](*args, **kwargs)
+        return _HANDLED_FUNCTIONS[func](*args, **kwargs)
 
     def max(self, dim=None, keepdims: bool = False) -> "NamedArray":
         """Maximum over one or more dimensions."""
@@ -647,5 +647,6 @@ def _make_numpy_wrapper(method_name):
 
 
 # Install reducers once, at import time
+_HANDLED_FUNCTIONS = {}
 for op in REDUCERS:
     _HANDLED_FUNCTIONS[op.np_func] = _make_numpy_wrapper(op.name)
