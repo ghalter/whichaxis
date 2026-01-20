@@ -158,6 +158,10 @@ class NamedArray:
         new_coords = {d: self.coords[d] for d in new_dims}
         return new_dims, new_coords
 
+    def shape(self):
+        """ Return the shape of the underlying data array. """
+        return self.data.shape
+
     # -------------------------------------------------------------------------
     # Selecting Data
     # -------------------------------------------------------------------------
