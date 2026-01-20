@@ -33,15 +33,3 @@ REDUCERS = [
     ReducerOp("nanmedian", np.nanmedian),
     ReducerOp("ptp", np.ptp),
 ]
-_HANDLED_FUNCTIONS = {}
-
-
-def _make_reducer_method(np_func):
-    """
-    Create a NamedArray instance method (arr.max, arr.mean, ...).
-    """
-
-    def reducer(self, dim=None, keepdims=False):
-        return self._reduce(np_func, dim=dim, keepdims=keepdims)
-
-    return reducer

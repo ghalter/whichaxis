@@ -243,6 +243,7 @@ arr.sum(dim="lon", keepdims=True)
 You never touch `axis=…`.
 
 Internally this is just NumPy:
+
 ```python
 np.max(arr, axis=0)  # also works
 np.mean(arr, dim="time")  # Does not work, use arr.mean(dim="time")
@@ -289,17 +290,79 @@ Convert **in or out**, nothing in between.
 xr = arr.to_xarray()
 back = NamedArray.from_xarray(xr)
 ```
+---
+That instinct is *absolutely correct*.
+The README is already clear about philosophy — repeating constraints here just adds noise.
 
-After conversion:
+Here’s a **clean, minimal, example-only section** that fits the tone and stays elegant.
 
-* xarray semantics stop
-* `whichaxis` semantics start
-
-This is intentional.
+You can drop this in verbatim.
 
 ---
 
-### 9. What to do when this is not enough
+### 9. Rolling windows
+
+Create sliding windows along a dimension.
+
+```python
+out = arr.rolling(dim="time", window=3)
+```
+
+This adds a new dimension called `"window"`:
+
+```python
+print(out.dims)
+# ['time', 'window', 'lat', 'lon']
+
+print(out.coords["window"])
+# [0, 1, 2]
+```
+
+You can then reduce over the window dimension:
+
+```python
+out.mean(dim="window")
+out.max(dim="window")
+```
+
+---
+
+### 10. Quantiles
+
+Compute quantiles and keep them as a named dimension.
+
+```python
+out = arr.quantile([0.1, 0.5, 0.9], dim="time")
+```
+
+```python
+print(out.dims)
+# ['quantile', 'lat', 'lon']
+
+print(out.coords["quantile"])
+# [0.1, 0.5, 0.9]
+```
+
+---
+
+### 11. Percentiles
+
+Percentiles behave the same way, just in percent.
+
+```python
+out = arr.percentile([5, 50, 95], dim="time")
+```
+
+```python
+print(out.dims)
+# ['percentile', 'lat', 'lon']
+
+print(out.coords["percentile"])
+# [5, 50, 95]
+```
+
+
+### 12. What to do when this is not enough
 
 If you need:
 
@@ -318,15 +381,6 @@ Then come back to `NamedArray` when things are clean and hot.
 
 ---
 
-### Mental model (remember this)
-
-> **`NamedArray = NumPy + axis names, nothing more.**
-
-If you ever wonder *“should whichaxis handle this?”*
-The answer is probably **no** — and that’s why it stays fast.
-
----
-
 ## NumPy Compatibility
 
 `whichaxis` integrates with NumPy via:
@@ -337,84 +391,10 @@ The answer is probably **no** — and that’s why it stays fast.
 The math stays in C.
 Only the semantics are wrapped.
 
----
-
-## Brutally Honest FAQ
-
-### Is this a replacement for xarray?
-
-**No.**
-This is what you use *after* xarray has done its job and *before* performance starts to matter.
-
-If you try to replace xarray with `whichaxis`, you will suffer — and you will deserve it.
-
----
-
-### Does it do alignment?
-
-**Absolutely not.**
-If two arrays don’t match, `whichaxis` will not negotiate peace treaties between them.
-
----
-
-### Does it broadcast by dimension name?
-
-No.
-Axes are named, not telepathic.
-
----
-
-### Is it lazy? Dask-backed? Distributed?
-
-No.
-If your data doesn’t fit in memory, this library politely suggests you go back upstairs.
-
----
-
-### Is it faster than `xarray.apply_ufunc`?
-
-Yes.
-Not because it’s clever — but because it assumes you already know what you’re doing.
-
----
-
-### Can I mix two `NamedArray`s in arithmetic?
-
-Yes — **if and only if** their dimensions match *exactly*.
-If not, you’ll get an error instead of a surprise.
-
----
-
-### Will it save me from bad math?
-
-No.
-It will only save you from forgetting whether `lat` was axis 1 or axis 2.
-
-That’s already ambitious.
-
----
-
-### Why not just use NumPy?
-
-Because after the third `axis=(2, 3)` in a row, you will:
-
-* scroll up,
-* squint,
-* curse
-
-`whichaxis` exists to stop that.
-
----
-
-### Is this library small on purpose?
-
-Yes. And I don't plan to grow it much.
-
----
-
 ### Who is this for?
 
 People who:
+
 * already know NumPy and probably xarray,
 * know exactly what they want,
 * have already paid the semantic tax,

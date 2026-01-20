@@ -5,9 +5,9 @@ description = "NumPy arrays with named axes. Because axis=1 is not a memory aid.
 authors = ["Gaudenz Halter"]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/yourname/whichaxis"
-repository = "https://github.com/yourname/whichaxis"
-keywords = ["numpy", "arrays", "scientific", "performance"]
+homepage = "https://github.com/ghalter/whichaxis"
+repository = "https://github.com/ghalter/whichaxis"
+keywords = ["numpy", "labeled-arrays", "scientific-computing", "performance", "xarray"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",
@@ -23,10 +23,7 @@ python = ">=3.10,<4.0"
 numpy = ">=1.23"
 
 # Optional but very useful
-xarray = { version = ">=2023.1", optional = true }
-
-[tool.poetry.extras]
-xarray = ["xarray"]
+xarray = { version = ">=2023.1" }
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0"
