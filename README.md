@@ -4,7 +4,7 @@
 
 Have you been lucky enough to buy RAM before 2026?
 Flabbergasted because you called `xarray.load()` twice and `apply_ufunc` is *still* not faster?
-So you dropped down to NumPy — and immediately forgot whether `axis=1` was `lat` or `lon` before you finished writing
+So you dropped down to NumPy ... and immediately forgot whether `axis=1` was `lat` or `lon` before you finished writing
 the second line of code?
 
 **Don’t worry. I got you.**
@@ -416,13 +416,4 @@ People who:
 * you need broadcasting by labels
 * you don’t fully trust your data yet
 
----
 
-## Final Words
-
-`whichaxis` is intentionally boring.
-Boring code is fast, readable, and correct.
-
-If you want magic, use xarray.
-If you are a NumPy wizard doing crazy things, use NumPy directly.
-If you just want fast arrays with named axes, `whichaxis` is here for you.
