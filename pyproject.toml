@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "whichaxis"
+version = "0.1.0"
+description = "NumPy arrays with named axes. Because axis=1 is not a memory aid."
+authors = ["Gaudenz Halter"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/yourname/whichaxis"
+repository = "https://github.com/yourname/whichaxis"
+keywords = ["numpy", "arrays", "scientific", "performance"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<4.0"
+numpy = ">=1.23"
+
+# Optional but very useful
+xarray = { version = ">=2023.1", optional = true }
+
+[tool.poetry.extras]
+xarray = ["xarray"]
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0"
+pytest-cov = "^4.1"
+ruff = "^0.3"
+mypy = "^1.8"
+
+[build-system]
+requires = ["poetry-core>=1.8.0"]
+build-backend = "poetry.core.masonry.api"
