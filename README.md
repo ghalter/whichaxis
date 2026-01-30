@@ -290,15 +290,6 @@ Convert **in or out**, nothing in between.
 xr = arr.to_xarray()
 back = NamedArray.from_xarray(xr)
 ```
----
-That instinct is *absolutely correct*.
-The README is already clear about philosophy — repeating constraints here just adds noise.
-
-Here’s a **clean, minimal, example-only section** that fits the tone and stays elegant.
-
-You can drop this in verbatim.
-
----
 
 ### 9. Rolling windows
 
@@ -379,28 +370,6 @@ Do it in:
 
 Then come back to `NamedArray` when things are clean and hot.
 
----
-
-## NumPy Compatibility
-
-`whichaxis` integrates with NumPy via:
-
-* `__array_ufunc__` → elementwise ops (`+`, `*`, `np.sin`, …)
-* `__array_function__` → selected NumPy APIs
-
-The math stays in C.
-Only the semantics are wrapped.
-
-### Who is this for?
-
-People who:
-
-* already know NumPy and probably xarray,
-* know exactly what they want,
-* have already paid the semantic tax,
-* and are done pretending that remembering axis order is “part of the fun”.
-
----
 
 ## When to Use / When to Run Away
 
