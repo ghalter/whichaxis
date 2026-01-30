@@ -3,7 +3,7 @@
 **NumPy, but you don’t forget which axis is which.**
 
 Have you been lucky enough to buy RAM before 2026?
-Flabbergasted because you called `xarray.load()` twice and `apply_ufunc` is *still* not faster?
+Flabbergasted because you called `xarray.load()` **twice** and `apply_ufunc` is *still* not faster?
 So you dropped down to NumPy ... and immediately forgot whether `axis=1` was `lat` or `lon` before you finished writing
 the second line of code?
 
